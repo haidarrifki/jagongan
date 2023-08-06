@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 import * as path from 'path';
-import { select, confirm } from '@inquirer/prompts';
+import { select, confirm, input } from '@inquirer/prompts';
 
-import { tokenizer, embed } from '@/embed.ts';
-import { chat } from '@/load.ts';
+import CodeProcessor from '@/processor.ts';
 
 const [, , ...args] = process.argv;
 
@@ -15,6 +14,14 @@ if (path.isAbsolute(args[0])) {
 }
 
 const run = async () => {
+  const inputOpenAIKey = await input({ message: 'Enter your OpenAI API key:' });
+  const inputSupabaseUrl = await input({
+    message: 'Enter your Supabase Project URL:',
+  });
+  const inputSupabaseKey = await input({
+    message: 'Enter your Supabase Project API key:',
+  });
+
   const model = await select({
     message: 'Select an OpenAI model',
     choices: [
@@ -45,16 +52,23 @@ const run = async () => {
     ],
   });
 
-  const { docs } = await tokenizer(dir, model);
+  const processor = new CodeProcessor(
+    inputOpenAIKey,
+    model,
+    inputSupabaseUrl,
+    inputSupabaseKey
+  );
+
+  const { docs } = await processor.tokenizer(dir);
 
   const isConfirmed = await confirm({
     message: 'Are you sure you want continue?',
   });
 
   if (isConfirmed) {
-    await embed(docs);
+    await processor.embed(docs);
     console.log('> Done.');
-    await chat();
+    await processor.chat();
   } else {
     console.log('Bye!');
   }
