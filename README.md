@@ -12,7 +12,7 @@ Well, I'm glad you asked! We've got:
 - A whole heap of TypeScript goodness, because who doesn't love static types?
 - A dash of `langchain` for when you're feeling linguistic.
 - `@supabase/supabase-js` for those times when you need a little more database in your life.
-- And let's not forget our good friends `chalk` and `dotenv`, because we all need a little color and environment in our lives.
+- And let's not forget our good friends `chalk`, because we all need a little color and environment in our lives.
 
 ## How do I get this party started?
 
@@ -32,7 +32,7 @@ You bet! We've got a handy little binary called `jagongan` that you can use. It'
 
 ## Who's responsible for this?
 
-That would be the one and only Muhammad Haidar Rifki. You can reach him at haidarrfki@gmail.com. He's pretty cool.
+That would be the one and only Muhammad Haidar Rifki. You can reach him at hello@haidarrifki.com. He's pretty cool.
 
 ## What's the license?
 
