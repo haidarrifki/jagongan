@@ -3,8 +3,6 @@
 ![version](https://img.shields.io/badge/version-1.0.0-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
-> "The place where your code comes to hang out, have a good time, and maybe do a little work."
-
 "Jagongan" is a Javanese slang term which has its roots in the word "jagong", meaning "to keep company" or "hang out". Here you can interact or talk anything with your codebase like it's your besties. It's a place where your code comes to hang out, have a good time, and maybe do a little work.
 
 ## What's in the box?
@@ -34,7 +32,7 @@ You bet! We've got a handy little binary called `jagongan` that you can use. It'
 
 ## Who's responsible for this?
 
-That would be the one and only Muhammad Haidar Rifki. You can reach him at haidar@gmail.com. He's pretty cool.
+That would be the one and only Muhammad Haidar Rifki. You can reach him at haidarrfki@gmail.com. He's pretty cool.
 
 ## What's the license?
 
