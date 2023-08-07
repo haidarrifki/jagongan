@@ -1,23 +1,38 @@
 #!/usr/bin/env node
 import * as path from 'path';
+
+import { program } from 'commander';
 import { select, confirm, input } from '@inquirer/prompts';
 
 import CodeProcessor from '@/processor.ts';
 
-const [, , ...args] = process.argv;
+program
+  .helpOption('-h, --help', 'display help for command')
+  .addHelpCommand('help [command]', 'display help for specific command')
+  .option('-c, --chat', 'start chat immediately after processing')
+  .option('-d, --dir <dir>', 'directory to process');
 
-let dir = '';
-if (path.isAbsolute(args[0])) {
-  dir = args[0];
-} else {
-  dir = path.join(process.cwd(), args[0]);
-}
+program.on('--help', () => {
+  console.log('');
+  console.log('Examples:');
+  console.log('Processing repo:');
+  console.log('  $ jagongan --dir /path/to/dir');
+  console.log('Chat after processing:');
+  console.log('  $ jagongan --chat');
+});
+
+program.parse(process.argv);
+const options = program.opts();
 
 const run = async () => {
-  const inputOpenAIKey = await input({ message: 'Enter your OpenAI API key:' });
+  const inputOpenAIKey = await input({
+    message: 'Enter your OpenAI API key:',
+  });
+
   const inputSupabaseUrl = await input({
     message: 'Enter your Supabase Project URL:',
   });
+
   const inputSupabaseKey = await input({
     message: 'Enter your Supabase Project API key:',
   });
@@ -58,6 +73,20 @@ const run = async () => {
     inputSupabaseUrl,
     inputSupabaseKey
   );
+
+  let dir = '';
+
+  if (options.dir) {
+    if (path.isAbsolute(options.dir)) {
+      dir = options.dir;
+    } else {
+      dir = path.join(process.cwd(), options.dir);
+    }
+  }
+
+  if (options.chat) {
+    await processor.chat();
+  }
 
   const { docs } = await processor.tokenizer(dir);
 
