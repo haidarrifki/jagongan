@@ -9,14 +9,14 @@ dependencies:
     specifier: ^3.0.2
     version: 3.0.2
   '@supabase/supabase-js':
-    specifier: ^2.31.0
-    version: 2.31.0
+    specifier: ^2.32.0
+    version: 2.32.0
   chalk:
     specifier: ^5.3.0
     version: 5.3.0
   langchain:
-    specifier: ^0.0.123
-    version: 0.0.123(@supabase/supabase-js@2.31.0)
+    specifier: ^0.0.124
+    version: 0.0.124(@supabase/supabase-js@2.32.0)
   tiktoken:
     specifier: ^1.0.10
     version: 1.0.10
@@ -437,8 +437,8 @@ packages:
       - encoding
     dev: false
 
-  /@supabase/postgrest-js@1.7.2:
-    resolution: {integrity: sha512-GK80JpRq8l6Qll85erICypAfQCied8tdlXfsDN14W844HqXCSOisk8AaE01DAwGJanieaoN5fuqhzA2yKxDvEQ==}
+  /@supabase/postgrest-js@1.8.0:
+    resolution: {integrity: sha512-R6leDIC92NgjyG2/tCRJ42rWN7+fZY6ulTEE+c00tcnghn6cX4IYUlnTNMtrdfYC2JYNOTyM+rWj63Wdhr7Zig==}
     dependencies:
       cross-fetch: 3.1.8
     transitivePeerDependencies:
@@ -463,12 +463,12 @@ packages:
       - encoding
     dev: false
 
-  /@supabase/supabase-js@2.31.0:
-    resolution: {integrity: sha512-W9/4s+KnSUX67wJKBn/3yLq+ieycnMzVjK3nNTLX5Wko3ypNT/081l2iFYrf+nsLQ1CiT4mA92I3dxCy6CmxTg==}
+  /@supabase/supabase-js@2.32.0:
+    resolution: {integrity: sha512-1ShFhuOI5Du7604nlCelBsRD61daXk2O0qwjumoz35bqrYThnSPPtpJqZOHw6Mg6o7mLjIInYLh/DBlh8UvzRg==}
     dependencies:
       '@supabase/functions-js': 2.1.2
       '@supabase/gotrue-js': 2.46.1
-      '@supabase/postgrest-js': 1.7.2
+      '@supabase/postgrest-js': 1.8.0
       '@supabase/realtime-js': 2.7.3
       '@supabase/storage-js': 2.5.1
       cross-fetch: 3.1.8
@@ -1155,8 +1155,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /langchain@0.0.123(@supabase/supabase-js@2.31.0):
-    resolution: {integrity: sha512-dMncy/yttMqch11tQUNdygQJlqlKampl8BULFWqZGG1uopzXC1ljqohWpdeLkwAYdKZ7uKcpdaYEXMvhxZsIJQ==}
+  /langchain@0.0.124(@supabase/supabase-js@2.32.0):
+    resolution: {integrity: sha512-TabvP1G47qe8UJKhgx+r2ezNwB9w6t247gl5EYli5rJ46cCQncAA9Ubtk5KGT9iu1wDOcT2Zx7r6Mm5PM/jeQA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@aws-sdk/client-dynamodb': ^3.310.0
@@ -1348,7 +1348,7 @@ packages:
         optional: true
     dependencies:
       '@anthropic-ai/sdk': 0.5.8
-      '@supabase/supabase-js': 2.31.0
+      '@supabase/supabase-js': 2.32.0
       ansi-styles: 5.2.0
       binary-extensions: 2.2.0
       camelcase: 6.3.0
