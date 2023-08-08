@@ -22,6 +22,7 @@ program.on('--help', () => {
 });
 
 program.parse(process.argv);
+
 const options = program.opts();
 
 const run = async () => {
@@ -74,32 +75,32 @@ const run = async () => {
     inputSupabaseKey
   );
 
-  let dir = '';
-
-  if (options.dir) {
-    if (path.isAbsolute(options.dir)) {
-      dir = options.dir;
-    } else {
-      dir = path.join(process.cwd(), options.dir);
-    }
-  }
-
   if (options.chat) {
     await processor.chat();
-  }
-
-  const { docs } = await processor.tokenizer(dir);
-
-  const isConfirmed = await confirm({
-    message: 'Are you sure you want continue?',
-  });
-
-  if (isConfirmed) {
-    await processor.embed(docs);
-    console.log('> Done.');
-    await processor.chat();
   } else {
-    console.log('Bye!');
+    let dir = '';
+
+    if (options.dir) {
+      if (path.isAbsolute(options.dir)) {
+        dir = options.dir;
+      } else {
+        dir = path.join(process.cwd(), options.dir);
+      }
+    }
+
+    const { docs } = await processor.tokenizer(dir);
+
+    const isConfirmed = await confirm({
+      message: 'Are you sure you want continue?',
+    });
+
+    if (isConfirmed) {
+      await processor.embed(docs);
+      console.log('> Done.');
+      await processor.chat();
+    } else {
+      console.log('Bye!');
+    }
   }
 };
 

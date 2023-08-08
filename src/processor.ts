@@ -17,11 +17,6 @@ import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { LLMChain } from 'langchain/chains';
 import { TiktokenModel, encoding_for_model } from 'tiktoken';
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
 type TokenizerResult = {
   docs: any[];
   tokens: number;
@@ -198,7 +193,13 @@ class CodeProcessor {
 
   askQuestion(question: string): Promise<string> {
     return new Promise((resolve) => {
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      });
+
       rl.question(question, (answer) => {
+        rl.close();
         resolve(answer);
       });
     });
@@ -284,8 +285,6 @@ class CodeProcessor {
 
       console.log('\n\n');
     }
-
-    rl.close();
   }
 }
 
