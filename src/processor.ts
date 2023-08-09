@@ -25,7 +25,7 @@ type TokenizerResult = {
 
 class CodeProcessor {
   private OPENAI_API_KEY = '';
-  private OPENAI_MODEL: string;
+  private OPENAI_MODEL = '';
   private SUPABASE_URL = '';
   private SUPABASE_KEY = '';
 
@@ -191,20 +191,6 @@ class CodeProcessor {
     console.log(vectorStore);
   }
 
-  askQuestion(question: string): Promise<string> {
-    return new Promise((resolve) => {
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
-
-      rl.question(question, (answer) => {
-        rl.close();
-        resolve(answer);
-      });
-    });
-  }
-
   async chat() {
     const supabaseClient = createClient(this.SUPABASE_URL, this.SUPABASE_KEY, {
       auth: { persistSession: false },
@@ -220,71 +206,83 @@ class CodeProcessor {
       queryName: 'match_documents',
     });
 
-    while (true) {
-      const query = await this.askQuestion(
-        chalk.blue('AI: What question do you have about your repo?\n')
-      );
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
 
-      if (query.toLowerCase().trim() === 'exit') {
-        console.log(chalk.green('Goodbye!'));
-        break;
-      }
+    const ask = (question: string) => {
+      rl.question(question, async (query) => {
+        if (query.toLowerCase().trim() === 'q') {
+          console.log(chalk.green('Goodbye!'));
+          process.exit(1);
+        }
 
-      const matchedDocs = await vectorStore.similaritySearch(query);
-      let codeStr = '';
+        const matchedDocs = await vectorStore.similaritySearch(query);
+        let codeStr = '';
 
-      for (const doc of matchedDocs) {
-        codeStr += doc.pageContent + '\n\n';
-      }
+        for (const doc of matchedDocs) {
+          codeStr += doc.pageContent + '\n\n';
+        }
 
-      const template = `
-        You are Codebase AI. You are a superintelligent AI that answers questions about codebases.
-    
-        You are:
-        - helpful & friendly
-        - good at answering complex questions in simple language
-        - an expert in all programming languages
-        - able to infer the intent of the user's question
-    
-        The user will ask a question about their codebase, and you will answer it.
-    
-        When the user asks their question, you will answer it by searching the codebase for the answer.
-    
-        Here is the user's question and code file(s) you found to answer the question:
-    
-        Question:
-        ${query}
-    
-        Code file(s):
-        ${codeStr}
-        
-        [END OF CODE FILE(S)]
-    
-        Now answer the question using the code file(s) above.
-      `;
+        const template = `
+          You are Codebase AI. You are a superintelligent AI that answers questions about codebases.
 
-      const systemMessagePrompt =
-        SystemMessagePromptTemplate.fromTemplate(template);
-      const chatPrompt = ChatPromptTemplate.fromPromptMessages([
-        systemMessagePrompt,
-      ]);
+          You are:
+          - helpful & friendly
+          - good at answering complex questions in simple language
+          - an expert in all programming languages
+          - able to infer the intent of the user's question
 
-      const chat = new ChatOpenAI({
-        temperature: 0.5,
-        openAIApiKey: this.OPENAI_API_KEY,
+          The user will ask a question about their codebase, and you will answer it.
+
+          When the user asks their question, you will answer it by searching the codebase for the answer.
+
+          Here is the user's question and code file(s) you found to answer the question:
+
+          Question:
+          ${query}
+
+          Code file(s):
+          ${codeStr}
+
+          [END OF CODE FILE(S)]
+
+          Now answer the question using the code file(s) above.
+        `;
+
+        const systemMessagePrompt =
+          SystemMessagePromptTemplate.fromTemplate(template);
+        const chatPrompt = ChatPromptTemplate.fromPromptMessages([
+          systemMessagePrompt,
+        ]);
+
+        const chat = new ChatOpenAI({
+          streaming: true,
+          temperature: 0.5,
+          openAIApiKey: this.OPENAI_API_KEY,
+        });
+
+        const chain = new LLMChain({
+          llm: chat,
+          prompt: chatPrompt,
+        });
+
+        await chain.call({ code: codeStr, query }, [
+          {
+            handleLLMNewToken(token: string) {
+              process.stdout.write(chalk.blue(token));
+            },
+          },
+        ]);
+
+        console.log('');
+
+        ask('');
       });
+    };
 
-      const chain = new LLMChain({
-        llm: chat,
-        prompt: chatPrompt,
-      });
-
-      const res = await chain.call({ code: codeStr, query });
-
-      console.log(res.text);
-
-      console.log('\n\n');
-    }
+    ask(chalk.blue('Hello, what question do you have about your repo?\n'));
   }
 }
 

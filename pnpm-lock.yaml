@@ -18,16 +18,16 @@ dependencies:
     specifier: ^11.0.0
     version: 11.0.0
   langchain:
-    specifier: ^0.0.124
-    version: 0.0.124(@supabase/supabase-js@2.32.0)
+    specifier: ^0.0.125
+    version: 0.0.125(@supabase/supabase-js@2.32.0)
   tiktoken:
     specifier: ^1.0.10
     version: 1.0.10
 
 devDependencies:
   '@types/node':
-    specifier: ^20.4.8
-    version: 20.4.8
+    specifier: ^20.4.9
+    version: 20.4.9
   tsup:
     specifier: ^7.2.0
     version: 7.2.0(typescript@5.1.6)
@@ -277,7 +277,7 @@ packages:
     dependencies:
       '@inquirer/type': 1.1.1
       '@types/mute-stream': 0.0.1
-      '@types/node': 20.4.8
+      '@types/node': 20.4.9
       '@types/wrap-ansi': 3.0.0
       ansi-escapes: 4.3.2
       chalk: 4.1.2
@@ -483,13 +483,13 @@ packages:
   /@types/mute-stream@0.0.1:
     resolution: {integrity: sha512-0yQLzYhCqGz7CQPE3iDmYjhb7KMBFOP+tBkyw+/Y2YyDI5wpS7itXXxneN1zSsUwWx3Ji6YiVYrhAnpQGS/vkw==}
     dependencies:
-      '@types/node': 20.4.8
+      '@types/node': 20.4.9
     dev: false
 
   /@types/node-fetch@2.6.4:
     resolution: {integrity: sha512-1ZX9fcN4Rvkvgv4E6PAY5WXUFWFcRWxZa3EW83UjycOB9ljJCedb2CupIP4RZMEwF/M3eTcCihbBRgwtGbg5Rg==}
     dependencies:
-      '@types/node': 20.4.8
+      '@types/node': 20.4.9
       form-data: 3.0.1
     dev: false
 
@@ -497,8 +497,8 @@ packages:
     resolution: {integrity: sha512-GXZxEtOxYGFchyUzxvKI14iff9KZ2DI+A6a37o6EQevtg6uO9t+aUZKcaC1Te5Ng1OnLM7K9NVVj+FbecD9cJg==}
     dev: false
 
-  /@types/node@20.4.8:
-    resolution: {integrity: sha512-0mHckf6D2DiIAzh8fM8f3HQCvMKDpK94YQ0DSVkfWTG9BZleYIWudw9cJxX8oCk9bM+vAkDyujDV6dmKHbvQpg==}
+  /@types/node@20.4.9:
+    resolution: {integrity: sha512-8e2HYcg7ohnTUbHk8focoklEQYvemQmu9M/f43DZVx43kHn0tE3BY/6gSDxS7k0SprtS0NHvj+L80cGLnoOUcQ==}
 
   /@types/phoenix@1.6.0:
     resolution: {integrity: sha512-qwfpsHmFuhAS/dVd4uBIraMxRd56vwBUYQGZ6GpXnFuM2XMRFJbIyruFKKlW2daQliuYZwe0qfn/UjFCDKic5g==}
@@ -515,7 +515,7 @@ packages:
   /@types/websocket@1.0.5:
     resolution: {integrity: sha512-NbsqiNX9CnEfC1Z0Vf4mE1SgAJ07JnRYcNex7AJ9zAVzmiGHmjKFEk7O4TJIsgv2B1sLEb6owKFZrACwdYngsQ==}
     dependencies:
-      '@types/node': 20.4.8
+      '@types/node': 20.4.9
     dev: false
 
   /@types/wrap-ansi@3.0.0:
@@ -1163,8 +1163,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /langchain@0.0.124(@supabase/supabase-js@2.32.0):
-    resolution: {integrity: sha512-TabvP1G47qe8UJKhgx+r2ezNwB9w6t247gl5EYli5rJ46cCQncAA9Ubtk5KGT9iu1wDOcT2Zx7r6Mm5PM/jeQA==}
+  /langchain@0.0.125(@supabase/supabase-js@2.32.0):
+    resolution: {integrity: sha512-LyrdyxOUBOTD6PN4aBP+yZ+y00u4mTbZa+rWJiihl6M6v+O0FfyVhlw6vSJ2rZsg8kSI2unGd6+/o8UZ4UbZcA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@aws-sdk/client-dynamodb': ^3.310.0
@@ -1227,6 +1227,7 @@ packages:
       srt-parser-2: ^1.2.2
       typeorm: ^0.3.12
       typesense: ^1.5.3
+      usearch: ^1.1.1
       vectordb: ^0.1.4
       weaviate-ts-client: ^1.0.0
     peerDependenciesMeta:
@@ -1349,6 +1350,8 @@ packages:
       typeorm:
         optional: true
       typesense:
+        optional: true
+      usearch:
         optional: true
       vectordb:
         optional: true
